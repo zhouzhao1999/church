@@ -50,16 +50,50 @@ def list():
 def bible():
     time1 = datetime.datetime.now().strftime('%Y-%m-%d')
     print(time1)
+    time1 = "2021-01-09"
     con = sqlite3.connect("bible.db")
     con.row_factory = sqlite3.Row
 
     cur = con.cursor()
-    cur.execute("select NEnglishName,NChapter,FullName from Daily "
+    cur.execute("select NChapter,FullName,SN from Daily "
                 "left join BibleID on Daily.NEnglishName = BibleID.EnglishName"
                 " where NDate='" + time1 + "' order by NOrder")
 
-    rows = cur.fetchall();
-    return render_template("bible.html", rows=rows)
+    rows = cur.fetchall()
+    lists = []
+    for row in rows:
+        list = {}
+        lection = ""
+        list["NChapter"] = row["NChapter"]  # 章节
+        list["FullName"] = row["FullName"]  # 中文名称
+        SN = str(row["SN"])  # 哪一篇圣经
+
+        nChapter = row["NChapter"].split(":")
+        if len(nChapter) == 1:
+            list["Text"] = seekBible(SN, nChapter[0])
+        else:
+            verse = nChapter[1].replace("a", "").replace("b", "").split(",")
+            for v in verse:
+                lection += seekBible(SN, nChapter[0], v.split("-")[0], v.split("-")[1])
+            list["Text"] = lection
+        lists.append(list)
+
+    return render_template("bible.html", rows=lists)
+
+
+def seekBible(volumeSN, chapterSN, verseSNStart="", verseSNEnd=""):
+    con = sqlite3.connect("bible.db")
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    sql = "select VerseSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN
+    if (len(verseSNStart) != 0 and len(verseSNEnd) != 0):
+        sql += " and VerseSN >= " + verseSNStart + " and VerseSN <= " + verseSNEnd
+    cur.execute(sql)
+    bible = cur.fetchall()
+    text = ""
+    for a in bible:
+        text += str(a["VerseSN"]) + "." + a["Lection"]
+    return text
 
 
 if __name__ == '__main__':

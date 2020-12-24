@@ -52,6 +52,7 @@
 
 
 
+
 </style>
 <body>
 <div class="rich_media_area_primary_inner">
@@ -137,6 +138,7 @@
         </section>
         <br></section>
 
+    {% for row in rows %}
     <section powered-by="xiumi.us"
              style="font-size: 16px;white-space: normal;text-align: center;transform: translate3d(1px, 0px, 0px);box-sizing: border-box;">
         <section
@@ -145,6 +147,7 @@
                     style="box-sizing: border-box;"><br style="box-sizing: border-box;"></p></section>
         </section>
     </section>
+
 
     <section powered-by="xiumi.us"
              style="margin-top: -20px;font-size: 16px;white-space: normal;text-align: center;box-sizing: border-box;">
@@ -196,7 +199,7 @@
                                     style="padding-right: 10px;padding-left: 10px;display: inline-block;vertical-align: bottom;width: auto;flex: 0 1 auto;box-sizing: border-box;">
                                 <section powered-by="xiumi.us"
                                          style="text-align: justify;font-size: 18px;color: rgb(107, 190, 217);letter-spacing: 1px;box-sizing: border-box;">
-                                    <p style="box-sizing: border-box;"><strong style="box-sizing: border-box;">诗篇89：1-4，19-26</strong>
+                                    <p style="box-sizing: border-box;"><strong style="box-sizing: border-box;">{{row["FullName"]}}:{{row["NChapter"]}}</strong>
                                     </p></section>
                             </section>
                             <section
@@ -236,15 +239,14 @@
                         </section>
                     </section>
                     <section powered-by="xiumi.us" style="line-height: 1.5;letter-spacing: 1px;box-sizing: border-box;">
-                        {% for row in rows %}
                         <p style="margin-right: 8px;margin-left: 8px;text-align: left;line-height: 2em;"><span
-                                style="font-size: 17px;">{{row["FullName"]}}:{{row["NChapter"]}}</span></p>
-                        {% endfor %}
+                                style="font-size: 17px;">{{row["Text"]}}</span></p>
                     </section>
                 </section>
             </section>
         </section>
-
+    </section>
+    {% endfor %}
 </div>
 </body>
 </html>
