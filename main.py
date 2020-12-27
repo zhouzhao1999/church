@@ -29,7 +29,7 @@ def bible():
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute("select NChapter,FullName,SN from Daily "
-                "left join BibleID on Daily.NEnglishName = BibleID.EnglishName"
+                "left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName"
                 " where NDate='" + time1 + "' order by NOrder")
     rows = cur.fetchall()
     lists = []
