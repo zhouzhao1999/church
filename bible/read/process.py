@@ -12,6 +12,11 @@ class Process:
         for row in rows:
             lists.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
                           "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
+        if len(lists)==0:
+            rows = sqlpool.getresultset("select NChapter,FullName,SN from Daily "
+                                    "left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName"
+                                    " where NDate='" + time1 + "' order by NOrder")
+
         return lists
 
 
