@@ -5,19 +5,52 @@ class Process:
 
     def getbible(self, time1):
         sqlpool = SqlPool()
+
         rows = sqlpool.getresultset("select NChapter,FullName,SN from Daily "
                                     "left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName"
                                     " where NDate='" + time1 + "' order by NOrder")
-        lists = []
+        list = []
         for row in rows:
-            lists.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
-                          "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
-        if len(lists)==0:
-            rows = sqlpool.getresultset("select NChapter,FullName,SN from Daily "
-                                    "left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName"
-                                    " where NDate='" + time1 + "' order by NOrder")
+            list.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
+                         "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
+        colorname = ""
+        ReadTypeName = ""
+        LiturgicalName = ""
+        if len(list) != 0:
+            jingkename = "每日经课"
+        else:
+            jingkename = "主日经课"
+            rows = sqlpool.getresultset(f'''
+                        select NChapter,FullName,SN,
+                            ReadType.NChineseName as ReadTypeName,
+                            Liturgical.NChineseName as LiturgicalName,
+                            Colors1.NCode as ColorCode,
+                            Colors1.NName as ColorName,
+                            Colors2.NCode as ColorOrCode,
+                            Colors2.NName as ColorOrName
+                        from Lectionary
+                            left join BibleID on rtrim(ltrim(Lectionary.NEnglishName)) = BibleID.EnglishName
+                            left join Liturgical on Liturgical.id = Lectionary.LiturgicalId
+                            left join ReadType on ReadType.id = Lectionary.NReadTypeId
+                            left join Colors Colors1 on Colors1.NCode = Liturgical.NColor
+                            left join Colors Colors2 on Colors2.NCode = Liturgical.NColorOr
+                        where NDate='{time1}' order by NOr
+            ''')
+            for row in rows:
+                list.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
+                             "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
+                colorname = row["ColorName"]
+                ReadTypeName = row["ReadTypeName"]
+                LiturgicalName = row["LiturgicalName"]
 
-        return lists
+                print(colorname)
+
+        return {"time": time1, "list": list,
+                "jingkename": jingkename,
+                "colorname": colorname,
+                "ReadTypeName": ReadTypeName,
+                "LiturgicalName": LiturgicalName,
+                }
 
 
 # 根据章节信用获得经文的条件，再根据条件获取经文的内容
@@ -36,7 +69,15 @@ def getbiblebychapter(sn, chapterlist):
     for chapter in chapterlist:
         aaa = chapter.split("-")
         if (len(aaa) == 1 and a == 0):  # 处理只有章没有节 如 39章，只有第一次处理
-            lection += seekbible(sn, aaa[0])
+            # 处理开始的章与节
+            bbb1 = aaa[0].split(":")
+            if len(bbb1) > 1:
+                startzhang = bbb1[0]
+                startjie = bbb1[1]
+                lection += seekbibleonejie(sn, startzhang, startjie)
+            else:
+                startzhang = aaa[0]
+                lection += seekbibleonezhang(sn, startzhang)
         else:
             # 处理开始的章与节
             bbb1 = aaa[0].split(":")
@@ -61,7 +102,7 @@ def getbiblebychapter(sn, chapterlist):
                 lection += seekbible(sn, startzhang, startjie, "200")
                 lection += seekbible(sn, endzhang, "0", endtjie)
             elif len(endtjie) == 0:
-                lection += seekbibleone(sn, startzhang, startjie)
+                lection += seekbibleonejie(sn, startzhang, startjie)
             else:
                 lection += seekbible(sn, startzhang, startjie, endtjie)
 
@@ -70,10 +111,20 @@ def getbiblebychapter(sn, chapterlist):
 
 
 # 根据条件查找经文
-def seekbible(volumeSN, chapterSN, verseSNStart="", verseSNEnd=""):
+def seekbible(volumeSN, chapterSN, verseSNStart, verseSNEnd):
     sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN
-    if len(verseSNStart) != 0 and len(verseSNEnd) != 0:
-        sql += " and VerseSN >= " + verseSNStart + " and VerseSN <= " + verseSNEnd
+    sql += " and VerseSN >= " + verseSNStart + " and VerseSN <= " + verseSNEnd
+    sqlpool = SqlPool()
+    bible = sqlpool.getresultset(sql)
+    text = ""
+    for a in bible:
+        text += str(a["ChapterSN"]) + ":" + str(a["VerseSN"]) + "." + a["Lection"]
+    return text
+
+
+# 根据条件查找某一章经文
+def seekbibleonezhang(volumeSN, chapterSN):
+    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN
     sqlpool = SqlPool()
     bible = sqlpool.getresultset(sql)
     text = ""
@@ -83,7 +134,7 @@ def seekbible(volumeSN, chapterSN, verseSNStart="", verseSNEnd=""):
 
 
 # 根据条件查找某一节经文
-def seekbibleone(volumeSN, chapterSN, verseSN):
+def seekbibleonejie(volumeSN, chapterSN, verseSN):
     sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN + " and VerseSN >= " + verseSN
     sqlpool = SqlPool()
     bible = sqlpool.getresultset(sql)

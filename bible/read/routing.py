@@ -23,6 +23,6 @@ def bible():
         elif way == "2":
             time1 = selectTime
     process = Process()
-    lists = process.getbible(time1)
+    result = process.getbible(time1)
 
-    return render_template("bible.html", rows=lists, time=time1)
+    return render_template("bible.html", result=result, time=time1)
