@@ -1,6 +1,6 @@
 import datetime
 from flask import render_template, request
-from bible.read import Process
+from bible.read.bible import Process
 from bible import app
 
 

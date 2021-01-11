@@ -1,6 +1,5 @@
-from bible.read.process import *
-
-import bible.read.routing
+import bible.read.bible.routing
+import bible.read.index.routing
 
 
 
