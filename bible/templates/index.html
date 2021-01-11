@@ -19,6 +19,10 @@
             display: flex;
             margin-bottom: 5px;
             background-color: rgb(241, 241, 241);
+            cursor: pointer;
+        }
+        .block:hover {
+            background-color: #fff;
         }
         .left{
             float: left;
@@ -81,12 +85,20 @@
             background-color: rgb(253, 123, 123);
             color: white;
         }
-
+        .color_red:hover{
+            background-color: #f54242;
+            color: white;
+        }
     </style>
+    <script type="text/javascript" >
+    function look(){
+        location.href = "bible"
+    }
+    </script>
 </head>
 <body>
 <div class="body">
-    <div class="block color_red">
+    <div class="block color_red" onclick="look()">
         <div class="left">
             <img src="1.png" alt="">
         </div>

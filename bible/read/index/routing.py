@@ -1,6 +1,4 @@
-import datetime
-from flask import render_template, request
-from bible.read.index import Process
+from flask import render_template
 from bible import app
 
 
