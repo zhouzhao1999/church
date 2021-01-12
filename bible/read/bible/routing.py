@@ -6,6 +6,7 @@ from bible import app
 
 @app.route('/bible', methods=['GET'])
 def bible():
+
     time1 = datetime.datetime.now().strftime('%Y-%m-%d')
     way = request.args.get('way', '')
     selectTime = request.args.get('time', '')
