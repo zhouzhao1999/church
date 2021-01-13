@@ -26,4 +26,4 @@ def bible():
     process = Process()
     result = process.getbible(time1)
 
-    return render_template("bible.html", result=result, time=time1)
+    return render_template("bible_red.html", result=result, time=time1)

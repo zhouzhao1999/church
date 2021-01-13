@@ -41,11 +41,6 @@
             line-height: 60px;
             text-align: center;
         }
-        .left img{
-            width: 60px;
-            height: 60px;
-            border-radius: 5px;
-        }
         .right{
             width: calc(100% - 60px);
             float: right;
@@ -91,7 +86,9 @@
         .color_red:hover{
             background-color: #f54242;
             color: white;
-            
+        }
+        .color_red .left div{
+            background-color: rgb(255, 78, 78);
         }
     </style>
     <script type="text/javascript" >
@@ -105,12 +102,12 @@
 
     <div class="block color_red" onclick="look()">
         <div class="left">
-            <img src="1.png" alt="">
+            <div>主日</div>
         </div>
         <div class="right">
             <div class="right_top">
                 <div class="title">主显日后第1主日</div>
-                <div class="date">2021-01-10(主日)</div>
+                <div class="date">2021-01-10(星期日)</div>
             </div>
             <div class="right_bottom">
                 诗篇:69:1-5,30-36
