@@ -21,7 +21,6 @@
             border-radius: 10px;
             display: flex;
             margin-bottom: 5px;
-            background-color: rgb(241, 241, 241);
             cursor: pointer;
         }
         .block:hover {
@@ -51,6 +50,7 @@
         }
         .right .date{
             float: right;
+            font-size: 12px;
         }
         .right .right_top{
             display: table;
@@ -59,6 +59,9 @@
         }
         .right .right_bottom{
             font-size: 12px;
+        }
+        .color_Gray{
+            background-color: rgb(241, 241, 241);
         }
         .color_Purple{
             background-color: rgb(208, 56, 255);
@@ -69,11 +72,9 @@
         }
         .color_Golden{
             background-color: rgb(253, 222, 43);
-            color: white;
         }
         .color_Green{
             background-color: rgb(76, 255, 70);
-            color: white;
         }
         .color_Crimson{
             background-color: Crimson;
@@ -99,42 +100,20 @@
 </head>
 <body>
 <div class="body">
-
-    <div class="block color_red" onclick="look()">
+    {% for row in result.list %}
+    <div class="block color_{{row['ColorCode']}}" onclick="look()">
         <div class="left">
             <div>主日</div>
         </div>
         <div class="right">
             <div class="right_top">
-                <div class="title">主显日后第1主日</div>
-                <div class="date">2021-01-10(星期日)</div>
+                <div class="title">{{row['NName']}}</div>
+                <div class="date">{{row['NDate']}}({{row['WeekName']}})</div>
             </div>
-            <div class="right_bottom">
-                诗篇:69:1-5,30-36
-                创世记:17:1-13
-                罗马书:4:1-12
-            </div>
+            <div class="right_bottom">{{row['Chapter']}}</div>
         </div>
-    </div>
-    <div class="block">
-        <div class="left">
-            <div>日课</div>
-        </div>
-        <div class="right">
-            <div class="right_top">
-                <div class="title">每日经课</div>
-                <div class="date">2021-01-10(星期一)</div>
-            </div>
-            <div class="right_bottom">
-                诗篇:69:1-5,30-36
-                创世记:17:1-13
-                罗马书:4:1-12
-                罗马书:4:1-12
-                罗马书:4:1-12
-            </div>
-
-        </div>
-    </div>
+    </div>    
+    {% endfor %}
 </div>
 </body>
 </html>

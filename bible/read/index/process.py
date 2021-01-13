@@ -1,6 +1,7 @@
 # coding=UTF-8
 
 from bible.db import SqlPool
+import datetime
 
 
 class Process:
@@ -9,7 +10,7 @@ class Process:
             with a as (
                 select '每日经课'as NName, 
                     NDate, 
-                    group_concat(FullName || NChapter) as Chapter,'white' as ColorCode  
+                    group_concat(FullName || NChapter) as Chapter,'Gray' as ColorCode  
                 from Daily 
                 left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName
                 group by NDate
@@ -32,13 +33,39 @@ class Process:
             select * from a
             where NDate<= DATE()
             order by NDate desc
-            limit 20
+            limit 30
         '''
 
         sqlpool = SqlPool()
         rows = sqlpool.getresultset(sql)
+        list = []
         for row in rows:
-            list.append({"NName": row["NName"], "NDate": row["NDate"],
-                            "Chapter": row["Chapter"]})
+            list.append({
+                "NName": row["NName"], 
+                "NDate": row["NDate"],
+                "Chapter": row["Chapter"],
+                "ColorCode": row["ColorCode"],
+                "WeekName" : getWeekName(row["NDate"])
+                })
 
         return {"list":list}
+
+def getWeekName(NDate):
+    time1 = datetime.datetime.strptime(NDate, '%Y-%m-%d')
+    weekname = ""
+    week = time1.weekday()
+    if week == 0:
+        weekname = "星期一"
+    elif week == 1:
+        weekname = "星期二"
+    elif week == 2:
+        weekname = "星期三"
+    elif week == 3:
+        weekname = "星期四"
+    elif week == 4:
+        weekname = "星期五"
+    elif week == 5:
+        weekname = "星期六"
+    elif week == 6:
+        weekname = "主日"
+    return weekname
