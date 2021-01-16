@@ -4,7 +4,7 @@ from bible.read.index import Process
 from bible import app
 
 
-@app.route('/index', methods=['GET'])
+@app.route('/index.html', methods=['GET'])
 def index():
     
     process = Process()

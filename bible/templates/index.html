@@ -71,7 +71,7 @@
             background-color: rgb(255, 255, 255);
         }
         .color_Golden{
-            background-color: rgb(253, 222, 43);
+            background-color: #ffd460
         }
         .color_Green{
             background-color: rgb(76, 255, 70);
@@ -93,15 +93,15 @@
         }
     </style>
     <script type="text/javascript" >
-    function look(){
-        location.href = "bible"
+    function look(NDate){
+        location.href = "bible?NDate="+NDate
     }
     </script>
 </head>
 <body>
 <div class="body">
     {% for row in result.list %}
-    <div class="block color_{{row['ColorCode']}}" onclick="look()">
+    <div class="block color_{{row['ColorCode']}}" onclick=look('{{row["NDate"]}}')>
         <div class="left">
             <div>主日</div>
         </div>

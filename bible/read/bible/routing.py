@@ -6,6 +6,13 @@ from bible import app
 
 @app.route('/bible', methods=['GET'])
 def bible():
+    NDate = request.args.get('NDate', '')
+    process = Process()
+    result = process.getbible(NDate)
+
+    return render_template(f"bible_{result['ColorCode']}.html", result=result)
+
+""" 
 
     time1 = datetime.datetime.now().strftime('%Y-%m-%d')
     way = request.args.get('way', '')
@@ -22,8 +29,4 @@ def bible():
             time1 = (datetime.datetime.strptime(selectTime, '%Y-%m-%d') + datetime.timedelta(days=1)).strftime(
                 '%Y-%m-%d')
         elif way == "2":
-            time1 = selectTime
-    process = Process()
-    result = process.getbible(time1)
-
-    return render_template("bible_red.html", result=result, time=time1)
+            time1 = selectTime """

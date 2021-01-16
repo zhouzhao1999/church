@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <title>经课</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="body">
+    <section class="_135editor assistant" data-tools="135编辑器" data-id="97929" >
+        <section style="margin:10px 0px;">
+            <section style="text-align: center;">
+                <section style="display:inline-block;">
+                    <section style="display:flex;justify-content: center;align-items: center;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);">
+                        <section class="assistant" data-bgless="spin" data-bgopacity="0%" style="box-sizing:border-box;width: 9px; height: 9px; background-color: #a532ed; margin-right: -3px; overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                        <section class="assistant" data-bgless="spin" data-bgopacity="30%" style="box-sizing:border-box;width: 9px; height: 9px; background-color: rgba(165, 50, 237, 0.7); margin-right: -3px; overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                        <section class="assistant" data-bgless="spin" data-bgopacity="70%" style="box-sizing:border-box;width: 9px; height: 9px; background-color: rgba(165, 50, 237, 0.3); overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                        <section class="assistant" style="flex: 1;background-image: linear-gradient(to right, #a532ed 0%, rgba(165, 50, 237, 0.3) 100%);height:1px;overflow: hidden;"></section>
+                        <section class="assistant" data-bgless="spin" data-bgopacity="0%" style="box-sizing:border-box;width: 8px; height: 8px; background-color: rgba(165, 50, 237, 0.3); overflow: hidden;"></section>
+                    </section>
+                    <section style="background-image: linear-gradient(to right, #a532ed 0%, rgba(165, 50, 237, 0.3) 100%); padding: 0px 1px 1px; margin-top: -5px; box-sizing: border-box;">
+                        <section class="assistant" style="background-color: #fefefe; font-size: 14px; letter-spacing: 1.5px; padding: 5px 10px; color: #897bc7; box-sizing: border-box;">
+                            {{result.jingkename}}||{{result.time}}
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="_135editor" data-tools="135编辑器" data-id="90590" >
+        <section style="padding:10px 10px;">
+            <section style="padding:10px 10px; box-shadow:0px 0px 5px #999;">
+                <section style="border-width: 10px; border-style:solid;-webkit-border-image: url(https://bdn.135editor.com/files/images/editor_styles/36dd135db049724ff3a625f5c89da51e.jpg) 20;" class="js_darkmode__bg__93 js_darkmode__bg__281">
+                    <section style="box-sizing:border-box;width:100%; text-align:center; font-size:22px; color:#73716f;" data-width="100%">
+                        {% for row in result.list %}
+                            <span style="font-size: 15px;">{{row["FullName"]}}:{{row["NChapter"]}}</span></br>
+                        {% endfor %}
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    
+    {% for row in result.list %}
+    <section class="_135editor" data-tools="135编辑器" data-id="97832" >
+        <section style="text-align: center;margin: 15px auto;">
+            <section style="display:inline-block;">
+                <section style="background-color: #edecf6; border-radius: 20px; padding: 6px 1.5em; box-sizing: border-box;">
+                    <section style="text-align: center; letter-spacing:3px;font-size:16px; color:#fcf4ec; text-shadow: #726ada 1px 1px, #726ada 1px -1px,#726ada 1px -1px, #726ada -1px 1px, #726ada -1px -1px, #726ada 0px 1.4px, #726ada 0px -1.4px, #726ada -1.4px 0px, #726ada 1.4px 0px,  2px 0px, #fbddca 0px 3px, #fbddca 0px 3px, #fbddca 0px 2px, #fbddca 0px 2px; box-sizing: border-box;">
+                        {{row["FullName"]}}:{{row["NChapter"]}}
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    
+    <p style="box-sizing:border-box;font-size: 14px; color: #897bc7;margin: 15px auto; width: 90%; flex: 0 0 90%;font-family: 思源黑体; line-height: 1.6;;text-align:center;" align="center">
+        {{row["Text"]}}
+    </p>
+    {% endfor %}
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@ import datetime
 class Process:
     def getList(self):
         sql = '''
-            with a as (
+            select * from (
                 select '每日经课'as NName, 
                     NDate, 
                     group_concat(FullName || NChapter) as Chapter,'Gray' as ColorCode  
@@ -28,9 +28,8 @@ class Process:
                     left join ReadType on ReadType.id = Lectionary.NReadTypeId
                     left join Colors Colors1 on Colors1.NCode = Liturgical.NColor
                     left join Colors Colors2 on Colors2.NCode = Liturgical.NColorOr
-            group by Liturgical.NChineseName
+                group by Liturgical.NChineseName
             )
-            select * from a
             where NDate<= DATE()
             order by NDate desc
             limit 30

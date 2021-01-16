@@ -29,7 +29,7 @@
                         <section style="border-right: 3px solid #d41825; border-bottom: 2px solid #d41825; margin-top: -30px; box-sizing: border-box;">
                             <section style="display: flex;justify-content: flex-start;align-items: flex-end;background: #fff7f3;padding: 7px 0px;">
                                 <section class="135brush" data-brushtype="text" style="font-size: 14px; letter-spacing: 1.5px; padding: 0px 2em 0px 4em; color: #e31617; font-weight: bold; box-sizing: border-box;" hm_fix="198:641">
-                                    每日经课||2021-01-13
+                                    {{result.jingkename}}||{{result.time}}
                                 </section>
                             </section>
                         </section>
@@ -66,7 +66,7 @@
             </section>
         </section>
         <p style="text-align:justify;  font-size: 14px; line-height: 2; padding-right: 10px; padding-left: 10px; margin: 15px 0%; box-sizing: border-box;;" align="justify">
-            <span style="caret-color: red;">69:1. 神啊，求你救我！因为众水要淹没我。69:2.我陷在深淤泥中，没有立脚之地；我到了深水中，大水漫过我身。69:3.我因呼求困乏，喉咙发干；我因等候 神，眼睛失明。69:4.无{{row["Text"]}}</span>
+            <span style="caret-color: red;">{{row["Text"]}}</span>
         </p>
         {% endfor %}
         <section class="_135editor" data-tools="135编辑器" data-id="101536">

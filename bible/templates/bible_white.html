@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <title>经课</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="body">
+    <section class="_135editor assistant" data-tools="135编辑器" data-id="95274" >
+        <section style="box-sizing:border-box;width: 100%;" data-width="100%">
+            <section style="box-sizing:border-box;width: 100%;" data-width="100%">
+                <img class="assistant" style="box-sizing:border-box;width: 100%;display: block;" src="static/image/1.jpg" data-ratio="0.6270903010033445" data-width="100%" data-w="598"/>
+            </section>
+            <section style="box-sizing:border-box;padding-bottom:3em;width: 80%;margin: 0px auto;margin-top: -5em;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);" data-width="80%">
+                <section style="border:5px solid #8296b0;box-sizing: border-box;background: #fefefe;">
+                    <section class="135brush" data-brushtype="text" style="text-align: center;font-weight: bold;letter-spacing: 1.5px;color: #333;font-size: 18px;line-height: 1.75em;">
+                        <p>
+                            <span style="color: #5b6b80;"> {{result.jingkename}}||{{result.time}}</span>
+                        </p>
+                    </section>
+                    <section style="box-sizing:border-box;width: 4em; height: 4px; background: #8296b0; margin: 1em auto; overflow: hidden;"></section>
+                    <section class="135brush" data-brushtype="text" style="text-align: center; letter-spacing: 1.5px; color: #333333; font-size: 14px; line-height: 1.75em; padding-bottom: 1em; box-sizing: border-box;">
+                        {% for row in result.list %}
+                            <span style="font-size: 15px;">{{row["FullName"]}}:{{row["NChapter"]}}</span></br>
+                        {% endfor %}
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    {% for row in result.list %}
+    <section class="_135editor" data-tools="135编辑器" data-id="95624" style="margin: 20px 0px;">
+        <section style="text-align: center;margin:10px auto 5px;">
+            <section style="display: inline-block;">
+                <section style="border:2px solid #8296b0;padding:3px;background:#fefefe;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);">
+                    <section class="135brush" data-brushtype="text" style="border: 1px solid #8296b0; padding: 5px 1.5em; letter-spacing: 1.5px; box-sizing: border-box;">
+                        <span style="font-size: 16px; color: #5b6b80;"><strong>{{row["FullName"]}}:{{row["NChapter"]}}</strong></span>
+                    </section>
+                </section>
+                <section style="box-sizing:border-box;width: 30px; margin-top: -26px; margin-left: -4px; height: 0px; overflow: hidden;"></section>
+            </section>
+        </section>
+    </section>
+    <br>
+    <section class="_135editor" data-tools="135编辑器" data-id="96422" style="margin: 10px 0;">
+        <section style="margin:10px;">
+            <section class="assistant" style=";transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);">
+                <section style="box-sizing:border-box;width: 8px; height: 8px; border-radius: 100%; background: #8296b0; margin-left: 28px; margin-bottom: 22px; overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                <section style="box-sizing:border-box;width: 8px; height: 8px; border-radius: 100%; background: #8296b0; margin-left: -3px; overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                <section style="box-sizing:border-box;width:40px;height:40px;background:#fefefe;padding:10px 0px;margin-left:-5px;margin-top:-40px;">
+                    <section style="box-sizing:border-box;width: 20px; height: 20px; border: 1px solid #8296b0; margin: 0px auto; overflow: hidden;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);"></section>
+                </section>
+            </section>
+            <section style="border: 1px solid #8296b0; margin-top: -35px; box-sizing: border-box;">
+                <section data-autoskip="1" style="font-size: 14px; text-align: justify; letter-spacing: 1.5px; line-height: 1.75em; color: #3e3e3e; padding: 2em; box-sizing: border-box;">
+                    {{row["Text"]}}
+                </section>
+            </section>
+        </section>
+    </section>
+    {% endfor %}
+</div>
+</body>
+</html>

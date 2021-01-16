@@ -7,7 +7,6 @@ class Process:
 
     def getbible(self, time1):
         sqlpool = SqlPool()
-
         rows = sqlpool.getresultset("select NChapter,FullName,SN from Daily "
                                     "left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName"
                                     " where NDate='" + time1 + "' order by NOrder")
@@ -15,13 +14,12 @@ class Process:
         for row in rows:
             list.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
                          "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
-        colorname = ""
-        ReadTypeName = ""
-        LiturgicalName = ""
+        ColorCode = ""
+        jingkename = ""
         if len(list) != 0:
             jingkename = "每日经课"
+            ColorCode = "white"
         else:
-            jingkename = "主日经课"
             rows = sqlpool.getresultset(f'''
                         select NChapter,FullName,SN,
                             ReadType.NChineseName as ReadTypeName,
@@ -41,17 +39,13 @@ class Process:
             for row in rows:
                 list.append({"NChapter": row["NChapter"], "FullName": row["FullName"],
                              "Text": getbiblebychapter(str(row["SN"]), row["NChapter"])})
-                colorname = row["ColorName"]
-                ReadTypeName = row["ReadTypeName"]
-                LiturgicalName = row["LiturgicalName"]
+                ColorCode = row["ColorCode"]
+                jingkename = row["LiturgicalName"]
 
-                print(colorname)
-
-        return {"time": time1, "list": list,
-                "jingkename": jingkename,
-                "colorname": colorname,
-                "ReadTypeName": ReadTypeName,
-                "LiturgicalName": LiturgicalName,
+        return {"time": time1,
+                "list": list,
+                "ColorCode": ColorCode.lower(),
+                "jingkename": jingkename
                 }
 
 
@@ -65,7 +59,8 @@ def getbiblebychapter(sn, chapterlist):
     endtjie = ""
 
     a = 0
-    chapterlist = chapterlist.replace("a", "").replace("b", "").replace("c", "")
+    chapterlist = chapterlist.replace(
+        "a", "").replace("b", "").replace("c", "")
     chapterlist = chapterlist.split(",")  # 所一段一段分开
 
     for chapter in chapterlist:
@@ -114,33 +109,39 @@ def getbiblebychapter(sn, chapterlist):
 
 # 根据条件查找经文
 def seekbible(volumeSN, chapterSN, verseSNStart, verseSNEnd):
-    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN
+    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + \
+        volumeSN + " and ChapterSN = " + chapterSN
     sql += " and VerseSN >= " + verseSNStart + " and VerseSN <= " + verseSNEnd
     sqlpool = SqlPool()
     bible = sqlpool.getresultset(sql)
     text = ""
     for a in bible:
-        text += str(a["ChapterSN"]) + ":" + str(a["VerseSN"]) + "." + a["Lection"]
+        text += str(a["ChapterSN"]) + ":" + \
+            str(a["VerseSN"]) + "." + a["Lection"]
     return text
 
 
 # 根据条件查找某一章经文
 def seekbibleonezhang(volumeSN, chapterSN):
-    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN
+    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + \
+        volumeSN + " and ChapterSN = " + chapterSN
     sqlpool = SqlPool()
     bible = sqlpool.getresultset(sql)
     text = ""
     for a in bible:
-        text += str(a["ChapterSN"]) + ":" + str(a["VerseSN"]) + "." + a["Lection"]
+        text += str(a["ChapterSN"]) + ":" + \
+            str(a["VerseSN"]) + "." + a["Lection"]
     return text
 
 
 # 根据条件查找某一节经文
 def seekbibleonejie(volumeSN, chapterSN, verseSN):
-    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + volumeSN + " and ChapterSN = " + chapterSN + " and VerseSN >= " + verseSN
+    sql = "select VerseSN,ChapterSN,Lection from Bible where VolumeSN = " + \
+        volumeSN + " and ChapterSN = " + chapterSN + " and VerseSN >= " + verseSN
     sqlpool = SqlPool()
     bible = sqlpool.getresultset(sql)
     text = ""
     for a in bible:
-        text += str(a["ChapterSN"]) + ":" + str(a["VerseSN"]) + "." + a["Lection"]
+        text += str(a["ChapterSN"]) + ":" + \
+            str(a["VerseSN"]) + "." + a["Lection"]
     return text
