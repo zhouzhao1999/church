@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <title>经课</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="body">
+    <section data-role="outer" label="Powered by 135editor.com onekey" style="background-repeat: repeat; background-position: left top; padding: 10px; background-size: auto; background-image: url(https://135editor.cdn.bcebos.com/files/users/432/4329106/202012/0EKLn5pXR_sFvM.jpg); box-sizing: border-box;" class="js_darkmode__bg__0 js_darkmode__bg__1">
+        <section class="_135editor assistant" data-tools="135编辑器" data-id="101338" >
+            <section style="margin: 10px auto;text-align: center;" hm_fix="173:196">
+                <section style="display: inline-block;">
+                    <section style="display: flex;justify-content: center;align-items: center;">
+                        <section class="135brush" data-brushtype="text" style="font-size: 16px;letter-spacing: 1.5px;padding: 4px 3em 4px 1em;color: #fff;font-weight: bold;background: #69bc91;">
+                            {{result.jingkename}}{{result.time}}
+                        </section>
+                        <section class="assistant" style="box-sizing:border-box;width: 40px;margin-left: -40px;margin-top: -3px;">
+                            <img class="assistant" style="box-sizing:border-box;width: 100%; display: block;" src="https://bdn.135editor.com/files/images/editor_styles/8293dfe5c68ce7c3f513acdda25c7238.jpg" data-ratio="0.859375" data-w="64" data-width="100%"/>
+                        </section>
+                    </section>
+                    <section style="">
+                        <section class="assistant" style="box-sizing:border-box; background-image: linear-gradient(to right, #94cdc4 10%, #acde98 100%); height: 1px; margin-top: 4px; width: 90%; overflow: hidden;" data-width="90%"></section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="_135editor" data-tools="135编辑器" data-id="90590" >
+            <section style="padding:10px 10px;">
+                <section style="padding:10px 10px; box-shadow:0px 0px 5px #999;">
+                    <section style="border-width: 10px; border-style:solid;-webkit-border-image: url(https://bdn.135editor.com/files/images/editor_styles/36dd135db049724ff3a625f5c89da51e.jpg) 20;" class="js_darkmode__bg__93 js_darkmode__bg__281">
+                        <section style="box-sizing:border-box;width:100%; text-align:center; font-size:22px; color:#73716f;" data-width="100%">
+                            {% for row in result.list %}
+                                <span style="font-size: 15px;">{{row["FullName"]}}:{{row["NChapter"]}}</span></br>
+                            {% endfor %}
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        {% for row in result.list %}
+        <section class="_135editor" data-tools="135编辑器" data-id="101339" >
+            <section style="margin: 10px auto;text-align: center;" hm_fix="424:449" class="">
+                <section style="display: inline-block;">
+                    <section style="display: flex;justify-content: center;align-items: center;">
+                        <section class="assistant" style="box-sizing:border-box;width: 30px;margin-right: -1em;margin-top: -10px;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-ms-transform: rotate(0deg);-o-transform: rotate(0deg);">
+                            <img class="assistant" style="box-sizing:border-box;width: 100%; display: block;" src="https://bdn.135editor.com/files/images/editor_styles/1da696a89de9bc64985c52ac87caac1d.jpg" data-ratio="1.4107142857142858" data-w="56" data-width="100%"/>
+                        </section>
+                        <section class="135brush" data-brushtype="text" style="font-size: 16px;letter-spacing: 1.5px;padding: 5px 1.5em 5px 2em;color: #fff;font-weight: bold;border-radius: 30px;background: #69bc91;border-top-left-radius: 0px;border-bottom-left-radius: 0px;">
+                            {{row["FullName"]}}:{{row["NChapter"]}}
+                        </section>
+                    </section>
+                    <section>
+                        <section class="assistant" style="box-sizing:border-box; background-image: linear-gradient(to right, #94cdc4 10%, #acde98 100%); height: 1px; margin-top: 4px; width: 90%; overflow: hidden;" data-width="90%"></section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <p style="text-align:justify;  font-size: 14px; line-height: 2; padding-right: 10px; padding-left: 10px; margin: 15px 0%; box-sizing: border-box;;" align="justify">
+            <span style="caret-color: red;">{{row["Text"]}}</span>
+        </p>
+        {% endfor %}
+        <section class="_135editor" data-tools="135编辑器" data-id="101330" hm_fix="354:265" >
+            <section class="assistant" style="box-sizing:border-box;width: 35px; margin: 10px auto;">
+                <img class="assistant" style="box-sizing:border-box;width: 100%; display: block;" src="https://bdn.135editor.com/files/images/editor_styles/3eae75b734db38f0b3725c517e569934.jpg" data-ratio="0.9107142857142857" data-w="56" data-width="100%"/>
+            </section>
+            <section class="135brush" data-brushtype="text" style="text-align:center;">
+                END
+            </section>
+        </section>
+    </section>
+</div>
+</body>
+</html>

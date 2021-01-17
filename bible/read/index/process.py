@@ -8,20 +8,27 @@ class Process:
     def getList(self):
         sql = '''
             select * from (
-                select '每日经课'as NName, 
-                    NDate, 
-                    group_concat(FullName || NChapter) as Chapter,'Gray' as ColorCode  
+                select 
+                    1 as NType,
+                    '每日经课'as NName, 
+                    Daily.NDate as NDate, 
+                    group_concat(FullName || NChapter) as Chapter,
+                    'Gray' as ColorCode,
+                    NPerson_W,
+                    NPerson_P
                 from Daily 
                 left join BibleID on rtrim(ltrim(Daily.NEnglishName)) = BibleID.EnglishName
-                group by NDate
+                left join ReadPerson on ReadPerson.NDate = Daily.NDate
+                group by Daily.NDate
                 
                 union all
                 
                 select 
+                    2 as NType,
                     Liturgical.NChineseName as LiturgicalName,
                     NDate,
                     group_concat(FullName || NChapter) as Chapter,
-                    Colors1.NCode as ColorCode
+                    Colors1.NCode as ColorCode,'',''
                 from Lectionary
                     left join BibleID on rtrim(ltrim(Lectionary.NEnglishName)) = BibleID.EnglishName
                     left join Liturgical on Liturgical.id = Lectionary.LiturgicalId
@@ -30,9 +37,9 @@ class Process:
                     left join Colors Colors2 on Colors2.NCode = Liturgical.NColorOr
                 group by Liturgical.NChineseName
             )
-            where NDate<= DATE()
+            where NDate<= DATE('now','14 days')
             order by NDate desc
-            limit 30
+            limit 21
         '''
 
         sqlpool = SqlPool()
@@ -44,7 +51,10 @@ class Process:
                 "NDate": row["NDate"],
                 "Chapter": row["Chapter"],
                 "ColorCode": row["ColorCode"],
-                "WeekName" : getWeekName(row["NDate"])
+                "WeekName" : getWeekName(row["NDate"]),
+                "NType":  row["NType"],
+                "NPerson_W":  row["NPerson_W"],
+                "NPerson_P":  row["NPerson_P"]
                 })
 
         return {"list":list}
