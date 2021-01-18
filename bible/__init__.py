@@ -1,3 +1,3 @@
 from flask import Flask
-app = Flask(__name__)
-import bible.read
+flaskapp = Flask(__name__)
+import bible.app

@@ -1,10 +1,10 @@
 import datetime
 from flask import render_template
-from bible.read.index import Process
-from bible import app
+from bible.app.index import Process
+from bible import flaskapp
 
 
-@app.route('/index.html', methods=['GET'])
+@flaskapp.route('/index.html', methods=['GET'])
 def index():
     
     process = Process()
