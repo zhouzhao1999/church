@@ -1,16 +1,16 @@
 import datetime
 from flask import render_template, request
-from bible.read.bible import Process
-from bible import app
+from bible.app.readbible import Process
+from bible import flaskapp
 
 
-@app.route('/bible', methods=['GET'])
+@flaskapp.route('/bible', methods=['GET'])
 def bible():
     NDate = request.args.get('NDate', '')
     process = Process()
     result = process.getbible(NDate)
 
-    return render_template(f"bible_{result['ColorCode']}.html", result=result)
+    return render_template(f"readbible/bible_{result['ColorCode']}.html", result=result)
 
 """ 
 

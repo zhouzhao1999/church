@@ -9,7 +9,6 @@ class SqlPool():
         con = sqlite3.connect(father_path + "/bible.db")
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        print(sql)
         cur.execute(sql)
         resultset = cur.fetchall()
         return resultset
