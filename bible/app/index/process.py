@@ -37,9 +37,9 @@ class Process:
                     left join Colors Colors2 on Colors2.NCode = Liturgical.NColorOr
                 group by Liturgical.NChineseName
             )
-            where NDate<= DATE('now','14 days')
-            order by NDate desc
-            limit 21
+            where NDate>= DATE('now','0 days')
+            order by NDate
+            limit 16
         '''
 
         sqlpool = SqlPool()
